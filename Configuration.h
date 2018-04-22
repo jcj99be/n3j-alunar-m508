@@ -780,8 +780,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 205 // Changed from default 200
-#define Y_BED_SIZE 205 // Changed from default 200
+#define X_BED_SIZE 200 // 22/04/2018 Change back to default from 205
+#define Y_BED_SIZE 200 // 22/04/2018 Change back to default from 205
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1018,8 +1018,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-//#define MANUAL_X_HOME_POS 0
-//#define MANUAL_Y_HOME_POS 0
+#define MANUAL_X_HOME_POS 4 // 22/04/2018 - Enabled option and set to -4 (adjustment to set middle of bed at 100,100)
+#define MANUAL_Y_HOME_POS -36 // 22/04/2018 - Enabled option and set to 36 (adjustment to set middle of bed at 100,100)
 //#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
