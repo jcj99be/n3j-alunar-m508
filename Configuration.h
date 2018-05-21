@@ -497,8 +497,8 @@
 #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop. Changed to invert
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
+#define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop. 
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -585,7 +585,7 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN // JJ_PROBE - Probe installed on the Z MAX pin (trying to remap Z MAX pin as Z MIN pin)
 
 /**
  * Z_MIN_PROBE_ENDSTOP
@@ -606,7 +606,7 @@
  * disastrous consequences. Use with caution and do your homework.
  *
  */
-//#define Z_MIN_PROBE_ENDSTOP
+// #define Z_MIN_PROBE_ENDSTOP
 
 /**
  * Probe Type
@@ -620,13 +620,13 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-#define PROBE_MANUALLY // Changed to enable feature
+//#define PROBE_MANUALLY // JJ_PROBE - Manually probing deactivated
 
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE // JJ_PROBE - Capacitive probed installed on the nozzle mount
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -683,9 +683,9 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER 10  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
+#define X_PROBE_OFFSET_FROM_EXTRUDER -34  // X offset: -left  +right  [of the nozzle]- JJ_PROBE -> adapted to measured offset
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -45  // Y offset: -front +behind [the nozzle] - JJ_PROBE -> Adapted to measured offset
+#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle] - JJ_PROBE -> Set during tuning from LCD
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -870,10 +870,10 @@
  *   With an LCD controller the process is guided step-by-step.
  */
 //#define AUTO_BED_LEVELING_3POINT
-#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
+//#define AUTO_BED_LEVELING_LINEAR
+#define AUTO_BED_LEVELING_BILINEAR // JJ_PROBE -> enabling bilinear for the probe
 //#define AUTO_BED_LEVELING_UBL
-//#define MESH_BED_LEVELING
+// #define MESH_BED_LEVELING  // JJ_PROBE -> Deactivated the MESH BED LEVELING
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
@@ -915,9 +915,9 @@
 
   // Set the boundaries for probing (where the probe can reach).
   #define LEFT_PROBE_BED_POSITION 15
-  #define RIGHT_PROBE_BED_POSITION 170
+  #define RIGHT_PROBE_BED_POSITION 150 // JJ_PROBE - Considering X offset, limit position to 150
   #define FRONT_PROBE_BED_POSITION 30 // 15/04/2018 Changed from 20 to 30 (position was off the bed)
-  #define BACK_PROBE_BED_POSITION 170
+  #define BACK_PROBE_BED_POSITION 150 // JJ_PROBE - Considering Y offset, limit position to 150
 
   // The Z probe minimum outer margin (to validate G29 parameters).
   #define MIN_PROBE_EDGE 10
@@ -994,7 +994,7 @@
  * Use the LCD controller for bed leveling
  * Requires MESH_BED_LEVELING or PROBE_MANUALLY
  */
-#define LCD_BED_LEVELING // Changed from default
+// #define LCD_BED_LEVELING // JJ_PROBE -> Disabled - not compatible with probe leveling
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MBL_Z_STEP 0.025    // Step size while manually probing Z axis.
@@ -1018,8 +1018,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS 4 // 22/04/2018 - Enabled option and set to -4 (adjustment to set middle of bed at 100,100)
-#define MANUAL_Y_HOME_POS -36 // 22/04/2018 - Enabled option and set to 36 (adjustment to set middle of bed at 100,100)
+//#define MANUAL_X_HOME_POS 4   // 19/05 - New nozzle mount don't need to overide anymore
+//#define MANUAL_Y_HOME_POS -36 // 19/05 - New nowwle mount don't need to overide anymore
 //#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -1031,7 +1031,7 @@
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
 // - Prevent Z homing when the Z probe is outside bed area.
 //
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING // JJ_PROBE - keeping option disabled since probe is installed on the Z MAX, Z MIN stays end stop for homing (put back on as swaping pins)
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)    // X point for Z homing when homing all axes (G28).
