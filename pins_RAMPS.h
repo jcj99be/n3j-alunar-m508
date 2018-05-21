@@ -75,7 +75,7 @@
 #endif
 #define Y_MIN_PIN          14
 #define Y_MAX_PIN          15
-#define Z_MIN_PIN          18
+#define Z_MIN_PIN          19  // JJ_PROBE -> Probe installed on Z MAX... Make Z_MAX look like the Z_MIN_PIN
 #define Z_MAX_PIN          19
 
 //
