@@ -683,8 +683,8 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER -34  // X offset: -left  +right  [of the nozzle]- JJ_PROBE -> adapted to measured offset
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -45  // Y offset: -front +behind [the nozzle] - JJ_PROBE -> Adapted to measured offset
+#define X_PROBE_OFFSET_FROM_EXTRUDER -29  // X offset: -left  +right  [of the nozzle]- JJ_PROBE -> Adapted to measured offset
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -48  // Y offset: -front +behind [the nozzle] - JJ_PROBE -> Adapted to measured offset
 #define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle] - JJ_PROBE -> Set during tuning from LCD
 
 // X and Y axis travel speed (mm/m) between probes
@@ -758,7 +758,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false // 14/04/2018 Changed from true to false after install of Bowden extruder system
+#define INVERT_E0_DIR true // 31/05/2018 Changed back to true after installation of original mechanism. Still bowden style
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -780,8 +780,8 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 200 // 22/04/2018 Change back to default from 205
-#define Y_BED_SIZE 200 // 22/04/2018 Change back to default from 205
+#define X_BED_SIZE 220 // 29/05 - Set to actual size based on measurements with ruler
+#define Y_BED_SIZE 220 // 29/05 - Set to actual size based on measurements with ruler
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
@@ -1031,7 +1031,7 @@
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
 // - Prevent Z homing when the Z probe is outside bed area.
 //
-#define Z_SAFE_HOMING // JJ_PROBE - keeping option disabled since probe is installed on the Z MAX, Z MIN stays end stop for homing (put back on as swaping pins)
+#define Z_SAFE_HOMING // JJ_PROBE - Z MIN stays end stop for homing (put back on as swaping pins)
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)    // X point for Z homing when homing all axes (G28).
