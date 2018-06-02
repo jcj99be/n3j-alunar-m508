@@ -124,7 +124,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "N3J 3D 2.0" // Enabled this and gave it a name
+#define CUSTOM_MACHINE_NAME "N3J 3D 2.2" // Enabled this and gave it a name
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -529,7 +529,8 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 92.6 } // Changed from default 80,80,4000,500
+// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 92.6 } // Changed from default 80,80,4000,500
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 114.53 } // 02/05 - changed extruder steps based on measured values
 
 /**
  * Default Max Feed Rate (mm/s)
