@@ -124,7 +124,8 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "N3J 3D 2.2" // Enabled this and gave it a name
+#define CUSTOM_MACHINE_NAME "N3J 3D 2.3" // Enabled this and gave it a name
+// v2.3 -> 05/06/2018 Changed position of probe. adjust X and Y offsets
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -684,8 +685,8 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER -34  // X offset: -left  +right  [of the nozzle]- JJ_PROBE -> adapted to measured offset
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -45  // Y offset: -front +behind [the nozzle] - JJ_PROBE -> Adapted to measured offset
+#define X_PROBE_OFFSET_FROM_EXTRUDER 51  // X offset: -left  +right  [of the nozzle]- JJ_PROBE -> adapted to measured offset
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -15  // Y offset: -front +behind [the nozzle] - JJ_PROBE -> Adapted to measured offset
 #define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle] - JJ_PROBE -> Set during tuning from LCD
 
 // X and Y axis travel speed (mm/m) between probes
@@ -915,9 +916,9 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define LEFT_PROBE_BED_POSITION 15
-  #define RIGHT_PROBE_BED_POSITION 150 // JJ_PROBE - Considering X offset, limit position to 150
-  #define FRONT_PROBE_BED_POSITION 30 // 15/04/2018 Changed from 20 to 30 (position was off the bed)
+  #define LEFT_PROBE_BED_POSITION 65
+  #define RIGHT_PROBE_BED_POSITION 180 // JJ_PROBE - Considering X offset, limit position to 150
+  #define FRONT_PROBE_BED_POSITION 50 // 15/04/2018 Changed from 20 to 30 (position was off the bed)
   #define BACK_PROBE_BED_POSITION 150 // JJ_PROBE - Considering Y offset, limit position to 150
 
   // The Z probe minimum outer margin (to validate G29 parameters).
