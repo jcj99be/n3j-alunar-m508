@@ -124,7 +124,9 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "N3J 3D Printer" // Enabled this and gave it a name
+#define CUSTOM_MACHINE_NAME "N3J 3D 2.5" // Enabled this and gave it a name
+// v2.3 -> 05/06/2018 Changed position of probe. adjust X and Y offsets
+// v2.4 -> 08/06/2018 Chnaged position of the probe again. Adjust X & Y offset and probing for autoleveling
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -497,8 +499,8 @@
 #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop. Changed to invert
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
+#define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop. 
+#define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -529,7 +531,8 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 92.6 } // Changed from default 80,80,4000,500
+// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 92.6 } // Changed from default 80,80,4000,500
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 114.53 } // 02/05 - changed extruder steps based on measured values
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -585,7 +588,7 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN // JJ_PROBE - Probe installed on the Z MAX pin (trying to remap Z MAX pin as Z MIN pin)
 
 /**
  * Z_MIN_PROBE_ENDSTOP
@@ -606,7 +609,7 @@
  * disastrous consequences. Use with caution and do your homework.
  *
  */
-//#define Z_MIN_PROBE_ENDSTOP
+// #define Z_MIN_PROBE_ENDSTOP
 
 /**
  * Probe Type
@@ -620,13 +623,13 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-#define PROBE_MANUALLY // Changed to enable feature
+//#define PROBE_MANUALLY // JJ_PROBE - Manually probing deactivated
 
 /**
  * A Fix-Mounted Probe either doesn't deploy or needs manual deployment.
  *   (e.g., an inductive probe or a nozzle-based probe-switch.)
  */
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE // JJ_PROBE - Capacitive probed installed on the nozzle mount
 
 /**
  * Z Servo Probe, such as an endstop switch on a rotating arm.
@@ -683,9 +686,9 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER 10  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
+#define X_PROBE_OFFSET_FROM_EXTRUDER -30 // X offset: -left  +right  [of the nozzle]- JJ_PROBE -> adapted to measured offset
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 15  // Y offset: -front +behind [the nozzle] - JJ_PROBE -> Adapted to measured offset
+#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle] - JJ_PROBE -> Set during tuning from LCD
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -758,7 +761,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR true // Changed from default false
+#define INVERT_E0_DIR true // 01/05/2018 changed again after changinf stepper setup
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -780,12 +783,12 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 205 // Changed from default 200
-#define Y_BED_SIZE 205 // Changed from default 200
+#define X_BED_SIZE 220 // 09/06/2018 bar blocks going all the way to the right side of the bed
+#define Y_BED_SIZE 220 // 09/06/2018 bed size is 220
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define Y_MIN_POS -25  // 09/06/2018 nozzle home position was 25mm off the bed
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
@@ -870,10 +873,10 @@
  *   With an LCD controller the process is guided step-by-step.
  */
 //#define AUTO_BED_LEVELING_3POINT
-#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
+//#define AUTO_BED_LEVELING_LINEAR
+#define AUTO_BED_LEVELING_BILINEAR // JJ_PROBE -> enabling bilinear for the probe
 //#define AUTO_BED_LEVELING_UBL
-//#define MESH_BED_LEVELING
+// #define MESH_BED_LEVELING  // JJ_PROBE -> Deactivated the MESH BED LEVELING
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
@@ -914,10 +917,10 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define LEFT_PROBE_BED_POSITION 15
-  #define RIGHT_PROBE_BED_POSITION 170
-  #define FRONT_PROBE_BED_POSITION 20
-  #define BACK_PROBE_BED_POSITION 170
+  #define LEFT_PROBE_BED_POSITION 40
+  #define RIGHT_PROBE_BED_POSITION 180 // JJ_PROBE - Considering X offset, limit position to 150
+  #define FRONT_PROBE_BED_POSITION 40 // 15/04/2018 Changed from 20 to 30 (position was off the bed)
+  #define BACK_PROBE_BED_POSITION 180 // JJ_PROBE - Considering Y offset, limit position to 150
 
   // The Z probe minimum outer margin (to validate G29 parameters).
   #define MIN_PROBE_EDGE 10
@@ -994,7 +997,7 @@
  * Use the LCD controller for bed leveling
  * Requires MESH_BED_LEVELING or PROBE_MANUALLY
  */
-#define LCD_BED_LEVELING // Changed from default
+// #define LCD_BED_LEVELING // JJ_PROBE -> Disabled - not compatible with probe leveling
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MBL_Z_STEP 0.025    // Step size while manually probing Z axis.
@@ -1002,7 +1005,7 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-#define LEVEL_BED_CORNERS  // Changed from default
+// #define LEVEL_BED_CORNERS  // 15/04/2018 removed
 
 /**
  * Commands to execute at the end of G29 probing.
@@ -1018,8 +1021,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-//#define MANUAL_X_HOME_POS 0
-//#define MANUAL_Y_HOME_POS 0
+//#define MANUAL_X_HOME_POS 4   // 19/05 - New nozzle mount don't need to overide anymore
+//#define MANUAL_Y_HOME_POS -36 // 19/05 - New nowwle mount don't need to overide anymore
 //#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -1031,7 +1034,7 @@
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
 // - Prevent Z homing when the Z probe is outside bed area.
 //
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING // JJ_PROBE - keeping option disabled since probe is installed on the Z MAX, Z MIN stays end stop for homing (put back on as swaping pins)
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)    // X point for Z homing when homing all axes (G28).
@@ -1113,7 +1116,7 @@
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //
-//#define EEPROM_SETTINGS // Enable for M500 and M501 commands
+#define EEPROM_SETTINGS // 15/04/2018 -> Activated Enable for M500 and M501 commands
 //#define DISABLE_M503    // Saves ~2700 bytes of PROGMEM. Disable for release!
 #define EEPROM_CHITCHAT   // Give feedback on EEPROM commands. Disable to save PROGMEM.
 
