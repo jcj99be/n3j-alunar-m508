@@ -124,12 +124,13 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "N3J 3D 2.7" // Enabled this and gave it a name
+#define CUSTOM_MACHINE_NAME "N3J 3D 2.8" // Enabled this and gave it a name
 // v2.3 -> 05/06/2018 Changed position of probe. adjust X and Y offsets
 // v2.4 -> 08/06/2018 Chnaged position of the probe again. Adjust X & Y offset and probing for autoleveling
 // v2.5 -> 28/06 2018 Replaced probe circuit invert z probe logic
 // v2.6 -> 15/07 2018 Changed probe position again
 // v2.7 -> 21/12/2018 Changed probe position again - X & Y probe offset + probe limits
+// v2.8 -> 21/12/2018 Change bed sizing relative to the probe
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -786,14 +787,14 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 220 // 09/06/2018 bar blocks going all the way to the right side of the bed
-#define Y_BED_SIZE 220 // 09/06/2018 bed size is 220
+#define X_BED_SIZE 190 // 21/12/2018 Experimentation shows limit is around 190
+#define Y_BED_SIZE 215 // 21/12/2018 Experimentation shows limit is around 215
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
-#define Y_MIN_POS -1  // about 1 cm off the bed
+#define Y_MIN_POS 0  // 21/12/2019 Home Position is right on the limit of the bed
 #define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
+#define X_MAX_POS 208 // 21/12/2019 X can go beyond the limit of the board (experimentation)
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 185 // Changed from default 200
 
@@ -920,10 +921,10 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define LEFT_PROBE_BED_POSITION 65    // 21/12/2018 - Changed based on new probe position. 2cm from left side + 4.5cm probe offset 
-  #define RIGHT_PROBE_BED_POSITION 155  // 21/12/2018 - Changes based on new probe position. nozzle 2cm from right side + 4.5cm probe offset (220 bed width)
-  #define FRONT_PROBE_BED_POSITION 40   // 21/12/2018 - Changed based on new probe position
-  #define BACK_PROBE_BED_POSITION 190   // 21/12/2018 - Changed based on new probe position
+  #define LEFT_PROBE_BED_POSITION 0    // 21/12/2018 - Changed based on new probe position. 3cm from left side + 4.5cm probe offset 
+  #define RIGHT_PROBE_BED_POSITION 160  // 21/12/2018 - Changes based on new probe position. nozzle 2cm from right side + 4.5cm probe offset (220 bed width)
+  #define FRONT_PROBE_BED_POSITION 30   // 21/12/2018 - Changed based on new probe position
+  #define BACK_PROBE_BED_POSITION 185   // 21/12/2018 - Changed based on new probe position
 
   // The Z probe minimum outer margin (to validate G29 parameters).
   #define MIN_PROBE_EDGE 10
